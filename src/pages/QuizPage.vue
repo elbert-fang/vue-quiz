@@ -9,7 +9,7 @@
         v-if="doingQuiz">
         <div class="box-question">
           <h2>
-            Question {{ currentQuestionIndex + 1 }}/ {{ questions.length }}
+            Question {{ currentQuestionIndex + 1 }}/ {{ this.allQuestions.length }}
           </h2>
           <p>{{ currentQuestion.question }}</p>
         </div>
@@ -28,7 +28,7 @@
       <div class="box-score"
         v-else>
         <h2>Your score is</h2>
-        <h2>{{ score }}/{{ questions.length }}</h2>
+        <h2>{{ score }}/{{ this.allQuestions.length }}</h2>
         <div class="btn-restart">
           <button @click="restartQuiz">
             Restart <i class="fas fa-sync-alt"></i>
@@ -50,60 +50,6 @@ export default {
   name: "QuizPage",
   data() {
     return {
-      questions: [
-        {
-          question:
-            "Question 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          suggestions: [
-            { suggestion: "A.Lorem ipsum", correct: true },
-            { suggestion: "B.Lorem ipsum" },
-            { suggestion: "C.Lorem ipsum" },
-            { suggestion: "D.Lorem ipsum" },
-          ],
-        },
-        {
-          question:
-            "Question 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          suggestions: [
-            { suggestion: "A.Lorem ipsum" },
-            { suggestion: "B.Lorem ipsum" },
-            { suggestion: "C.Lorem ipsum", correct: true },
-            { suggestion: "D.Lorem ipsum" },
-          ],
-        },
-        {
-          question:
-            "Question 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          suggestions: [
-            { suggestion: "A.Lorem ipsum" },
-            { suggestion: "B.Lorem ipsum", correct: true },
-            { suggestion: "C.Lorem ipsum" },
-            { suggestion: "D.Lorem ipsum" },
-          ],
-        },
-        {
-          question:
-            "Question 4 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          suggestions: [
-            { suggestion: "A.Lorem ipsum" },
-            { suggestion: "B.Lorem ipsum" },
-            { suggestion: "C.Lorem ipsum" },
-            { suggestion: "D.Lorem ipsum", correct: true },
-          ],
-        },
-        {
-          question:
-            "Question 5 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          suggestions: [
-            { suggestion: "A.Lorem ipsum", correct: true },
-            { suggestion: "B.Lorem ipsum" },
-            { suggestion: "C.Lorem ipsum" },
-            { suggestion: "D.Lorem ipsum" },
-          ],
-        },
-      ],
-      // a:0,
-      // b:1,
       currentQuestionIndex: 0,
       score: 0,
       doingQuiz: true,
@@ -111,9 +57,13 @@ export default {
     }
   },
   computed: {
+    allQuestions() {
+      return this.$store.getters.getQuestions
+    },
     currentQuestion() {
-      return this.questions[this.currentQuestionIndex]
-    }
+      return this.allQuestions[this.currentQuestionIndex]
+    },
+
   },
   methods: {
     selectResponse(option, index) {
@@ -134,7 +84,7 @@ export default {
       }
     },
     nextQuestion() {
-      if (this.questions.length - 1 === this.currentQuestionIndex) {
+      if (this.allQuestions.length - 1 === this.currentQuestionIndex) {
         this.doingQuiz = false
       } else {
         this.currentQuestionIndex += 1
