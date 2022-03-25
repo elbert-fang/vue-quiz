@@ -1,15 +1,15 @@
 <template>
   <section class="container-app">
-    <div class="router">
-      <nav>
-        <router-link class="nav-item"
-          to="/">Home</router-link>
-        <router-link class="nav-item"
-          to="/quiz">Quiz</router-link>
-        <router-link class="nav-item"
-          to="/edit">Edit</router-link>
-      </nav>
-    </div>
+
+    <nav class="primary-nav">
+      <router-link class="nav-item"
+        to="/">Home</router-link>
+      <router-link class="nav-item"
+        to="/quiz">Quiz</router-link>
+      <router-link class="nav-item"
+        to="/edit">Edit</router-link>
+    </nav>
+
     <router-view>
       <home-page></home-page>
     </router-view>
