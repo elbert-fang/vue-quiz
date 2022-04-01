@@ -11,6 +11,14 @@ const getters = {
 const mutations = {
   addQuestions: (state, newQuesion) => {
     state.questions.push(newQuesion)
+  },
+
+  editQuestion: () => {
+
+  },
+
+  deleteQuestion: (state, index) => {
+    state.questions.splice(index, 1)
   }
 }
 

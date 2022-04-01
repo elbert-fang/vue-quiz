@@ -1,91 +1,92 @@
 [
   {
-    "question": "Question 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    "question": "In which continent are Chile, Argentina and Brazil?",
+    "type": "Multiple Choice",
+    "isEditable": false,
     "suggestions": [
       {
-        "suggestion": "A.Lorem ipsum",
+        "suggestion": "South America",
         "correct": true
       },
       {
-        "suggestion": "B.Lorem ipsum"
+        "suggestion": "North America"
       },
       {
-        "suggestion": "C.Lorem ipsum"
+        "suggestion": "Europe"
       },
       {
-        "suggestion": "D.Lorem ipsum"
+        "suggestion": "Australasia"
       }
     ]
   },
   {
-    "question": "Question 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    "question": "What is the main component of the sun?",
+    "type": "Short Answer",
+    "isEditable": false,
     "suggestions": [
       {
-        "suggestion": "A.Lorem ipsum"
-      },
-      {
-        "suggestion": "B.Lorem ipsum"
-      },
-      {
-        "suggestion": "C.Lorem ipsum",
-        "correct": true
-      },
-      {
-        "suggestion": "D.Lorem ipsum"
-      }
-    ]
-  },
-  {
-    "question": "Question 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    "suggestions": [
-      {
-        "suggestion": "A.Lorem ipsum"
-      },
-      {
-        "suggestion": "B.Lorem ipsum",
-        "correct": true
-      },
-      {
-        "suggestion": "C.Lorem ipsum"
-      },
-      {
-        "suggestion": "D.Lorem ipsum"
-      }
-    ]
-  },
-  {
-    "question": "Question 4 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    "suggestions": [
-      {
-        "suggestion": "A.Lorem ipsum"
-      },
-      {
-        "suggestion": "B.Lorem ipsum"
-      },
-      {
-        "suggestion": "C.Lorem ipsum"
-      },
-      {
-        "suggestion": "D.Lorem ipsum",
+        "suggestion": "Gas",
         "correct": true
       }
     ]
   },
   {
-    "question": "Question 5 Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    "question": "What is actually electricity",
+    "type": "Multiple Choice",
+    "isEditable": false,
     "suggestions": [
       {
-        "suggestion": "A.Lorem ipsum",
+        "suggestion": "A flow of water"
+      },
+      {
+        "suggestion": "A flow of air"
+      },
+      {
+        "suggestion": "A flow of elctron",
         "correct": true
       },
       {
-        "suggestion": "B.Lorem ipsum"
+        "suggestion": "A flow of atoms"
+      }
+    ]
+  },
+  {
+    "question": "Which of the following is not an international organisation?",
+    "type": "Multiple Choice",
+    "isEditable": false,
+    "suggestions": [
+      {
+        "suggestion": "FIFA"
       },
       {
-        "suggestion": "C.Lorem ipsum"
+        "suggestion": "NATO"
       },
       {
-        "suggestion": "D.Lorem ipsum"
+        "suggestion": "ASEAN"
+      },
+      {
+        "suggestion": "FBI",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "question": "Which of the following disorders is the fear of being alone?",
+    "type": "Multiple Choice",
+    "isEditable": false,
+    "suggestions": [
+      {
+        "suggestion": "Agoraphobia",
+        "correct": true
+      },
+      {
+        "suggestion": "Aerophobia"
+      },
+      {
+        "suggestion": "Acrophobia"
+      },
+      {
+        "suggestion": "Arachnophobia"
       }
     ]
   }

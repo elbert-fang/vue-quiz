@@ -1,7 +1,5 @@
 * {
     font-family: 'Poppins', sans-serif;
-    margin:0;
-    letter-spacing: 2px;
 }
 
 .container-app{
@@ -27,7 +25,7 @@
 }
 
 .home-wrapper{
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,7 +91,7 @@
     margin:auto;
 }
 
-ul{
+.box-suggestions ul{
     display: felx;
     width: 100%;
     margin: 0;
@@ -101,7 +99,7 @@ ul{
     flex-flow: column;
 }
 
-li{
+.box-suggestions li{
     list-style: none;
     line-height: 2;
     border: 1px solid #cdd2d2;
@@ -147,11 +145,28 @@ li.selectedAnswer{
     font-weight: 600;
 }
 
+.bg-wrong{
+    background-color:rgb(240,117,100);
+}
+
+.border-wrong{
+    border: 1px solid rgb(240,117,100);
+}
+
+.border-correct{
+    border: 1px solid rgb(74,219,74);
+}
+
+.bg-correct{
+    background-color: rgb(74,219,74);
+}
+
+
 .box-score{
     display: flex;
-    width: 100%;
-    height: 70%;
+    width: 80%;
     flex-flow: column;
+    margin: auto;
 }
 
 .box-score h2{
@@ -214,6 +229,14 @@ h2.heading{
     padding-bottom: 1rem;
 }
 
+.p-1{
+    padding:1rem;
+}
+
+.pb-1-2{
+    padding-bottom: 0.5rem;
+}
+
 .my-1{
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -223,6 +246,49 @@ h2.heading{
     margin-bottom: 1rem;
 }
 
+.my-1-2{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 .mt-1{
     margin-bottom: 1rem;
+}
+
+li{
+    list-style: none;
+}
+
+.error-input{
+    border: 2px solid rgb(240,117,100);
+}
+
+.error-message{
+    color: rgb(240,117,100);
+}
+
+td {
+    border: 1px solid grey;
+}
+
+table{
+    border-spacing: 0;
+    border: 1px solid grey;
+}
+
+table input {
+    width: 95%;
+}
+
+.bg-light{
+    background-color: #e7eae0;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.mx-auto{
+    margin-left: auto;
+    margin-right: auto;
 }

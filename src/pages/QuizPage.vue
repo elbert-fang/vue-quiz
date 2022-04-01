@@ -1,36 +1,64 @@
 <template>
   <section class="container-app">
-    <div class="container-quiz">
-      <div class="quiz-header">
-        <h1>Quiz App</h1>
-        <button @click="addAQuestion">Click me</button>
-      </div>
 
-      <!-- Rewrite following section, repalce the slice with a simple for loop, using computed value -- current question, -->
-      <div class="quiz-main"
-        v-if="doingQuiz">
-        <div class="box-question">
-          <h2>
-            Question {{ currentQuestionIndex + 1 }}/ {{ this.allQuestions.length }}
-          </h2>
-          <p>{{ currentQuestion.question }}</p>
+    <!-- Quiz section -->
+    <template v-if="doingQuiz">
+      <div class="container-quiz">
+        <div class="quiz-header">
+          <h1>Quiz App</h1>
         </div>
-        <div class="box-suggestions">
-          <ul>
-            <li v-for="(item, index) in currentQuestion.suggestions"
-              :key="index"
-              :class="optionClasses(index)"
-              @click="selectResponse(item, index)">
-              {{ item.suggestion }}
-            </li>
-          </ul>
+        <div class="quiz-main">
+          <div class="box-question">
+            <h2>
+              Question {{ currentQuestionIndex + 1 }}/ {{ this.allQuestions.length }}
+            </h2>
+            <p>{{ currentQuestion.question }}</p>
+          </div>
+          <div class="box-suggestions">
+            <ul v-if="currentQuestion.type === 'Multiple Choice'">
+              <li v-for="(item, index) in currentQuestion.suggestions"
+                :key="index"
+                :class="optionClasses(index)"
+                @click="selectResponse(item, index)">
+                {{ item.suggestion }}
+              </li>
+            </ul>
+
+            <template v-else>
+              <textarea v-model="shortAnswer"
+                rows="4"
+                cols="60" />
+            </template>
+          </div>
+        </div>
+
+        <div class="quiz-footer">
+          <div class="box-button">
+            <button @click="nextQuestion">Next</button>
+          </div>
         </div>
       </div>
+    </template>
 
-      <div class="box-score"
-        v-else>
+    <!-- Scoring -->
+    <div class="box-score"
+      v-else>
+      <div class="mx-auto text-center">
         <h2>Your score is</h2>
-        <h2>{{ score }}/{{ this.allQuestions.length }}</h2>
+        <h3>{{ score }}/{{ this.allQuestions.length }}</h3>
+      </div>
+
+      <div class="my-1">
+        <ul v-for="(r, index) in results">
+          <li class="p-1 my-1"
+            :class="[r.result ? 'border-correct': 'border-wrong']"
+            :key="index">
+            <p>{{`Question ${index +1}: ${r.question}`}}</p>
+            <p>{{`Your answer: ${r.userAnswer}`  }}</p>
+            <p v-if="!r.result">{{`Correct Answer: ${r.correctAnswer}`}}</p>
+          </li>
+        </ul>
+
         <div class="btn-restart">
           <button @click="restartQuiz">
             Restart <i class="fas fa-sync-alt"></i>
@@ -38,12 +66,8 @@
         </div>
       </div>
 
-      <div class="quiz-footer">
-        <div class="box-button">
-          <button @click="nextQuestion">Next</button>
-        </div>
-      </div>
     </div>
+
   </section>
 </template>
 
@@ -62,6 +86,8 @@ export default {
       score: 0,
       doingQuiz: true,
       results: [],
+      shortAnswer: '',
+      isSelect: false
     }
   },
 
@@ -85,6 +111,10 @@ export default {
     currentQuestion() {
       return this.allQuestions[this.currentQuestionIndex]
     },
+
+    currentCorrectAnswer() {
+      return this.currentQuestion.suggestions.find(suggestion => suggestion.correct = true).suggestion
+    }
   },
 
 
@@ -96,35 +126,42 @@ export default {
     //  ([MODULE_NAME], [ARRAY_OF_MUTATION_NAME])
     ...mapMutations('questions', ['addQuestions']),
 
-    addAQuestion() {
-      const question = {
-        "question": "Dummy Question Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "suggestions": [
-          {
-            "suggestion": "A.Lorem ipsum",
-            "correct": true
-          },
-          {
-            "suggestion": "B.Lorem ipsum"
-          },
-          {
-            "suggestion": "C.Lorem ipsum"
-          },
-          {
-            "suggestion": "D.Lorem ipsum"
-          }
-        ]
+    selectResponse(option, index) {
+      if (this.isSelect == false) {
+        this.isSelect = true
+        const selctResult = {
+          question: this.currentQuestion.question,
+          correctAnswer: this.currentCorrectAnswer,
+          userAnswer: option.suggestion,
+          result: option.correct ? true : false,
+          index: index
+        }
+
+        this.results.push(selctResult)
+        if (option.correct) {
+          this.score++
+        }
       }
-      this.addQuestions(question)
     },
 
+    submitShortAnswer() {
+      const correctAnswer = this.currentQuestion.suggestions[0].suggestion
 
-    selectResponse(option, index) {
-      this.results.push({ ...option, index })
-      if (option.correct) {
+      const shortResult = {
+        question: this.currentQuestion.question,
+        correctAnswer: correctAnswer,
+        userAnswer: this.shortAnswer,
+        result: correctAnswer.toUpperCase() === this.shortAnswer.toUpperCase()
+      }
+
+      if (correctAnswer.toUpperCase() === this.shortAnswer.toUpperCase()) {
         this.score++
       }
+
+      this.results.push(shortResult)
+      this.shortAnswer = ''
     },
+
     optionClasses(index) {
       const thisSuggestion = this.currentQuestion.suggestions[index]
       const answer = this.results[this.currentQuestionIndex]
@@ -136,13 +173,23 @@ export default {
         }
       }
     },
+
     nextQuestion() {
+      // call submit short answer
+      if (this.currentQuestion.type === "Short Answer") {
+        this.submitShortAnswer()
+      }
+
+      // increase current questiong index
       if (this.allQuestions.length - 1 === this.currentQuestionIndex) {
         this.doingQuiz = false
       } else {
         this.currentQuestionIndex += 1
       }
+
+      this.isSelect = false
     },
+
     restartQuiz() {
       Object.assign(this.$data, this.$options.data()) // reset data
     },
