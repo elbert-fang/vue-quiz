@@ -1,19 +1,24 @@
 module.exports = {
   root: true,
+
   env: {
     browser: true,
     es6: true,
     node: true,
   },
+
   globals: {
     browser: 'readonly',
     assert: 'readonly',
     jest: 'readonly',
   },
+
   parserOptions: {
     parser: '@babel/eslint-parser',
   },
+
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
+
   rules: {
     /**
      * Bad code that we want to know about
@@ -122,4 +127,16 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+      ],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 }
