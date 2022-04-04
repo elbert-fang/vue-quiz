@@ -1,6 +1,5 @@
 <template>
   <section class="container-app">
-
     <!-- Quiz section -->
     <template v-if="doingQuiz">
       <div class="container-quiz">
@@ -10,7 +9,7 @@
         <div class="quiz-main">
           <div class="box-question">
             <h2>
-              Question {{ currentQuestionIndex + 1 }}/ {{ this.allQuestions.length }}
+              Question {{ currentQuestionIndex + 1 }}/ {{ allQuestions.length }}
             </h2>
             <p>{{ currentQuestion.question }}</p>
           </div>
@@ -34,40 +33,43 @@
 
         <div class="quiz-footer">
           <div class="box-button">
-            <button @click="nextQuestion">Next</button>
+            <button @click="nextQuestion">
+              Next
+            </button>
           </div>
         </div>
       </div>
     </template>
 
     <!-- Scoring -->
-    <div class="box-score"
-      v-else>
+    <div v-else
+      class="box-score">
       <div class="mx-auto text-center">
         <h2>Your score is</h2>
-        <h3>{{ score }}/{{ this.allQuestions.length }}</h3>
+        <h3>{{ score }}/{{ allQuestions.length }}</h3>
       </div>
 
       <div class="my-1">
-        <ul v-for="(r, index) in results">
-          <li class="p-1 my-1"
-            :class="[r.result ? 'border-correct': 'border-wrong']"
-            :key="index">
-            <p>{{`Question ${index +1}: ${r.question}`}}</p>
-            <p>{{`Your answer: ${r.userAnswer}`  }}</p>
-            <p v-if="!r.result">{{`Correct Answer: ${r.correctAnswer}`}}</p>
+        <ul v-for="(r, index) in results"
+          :key="index">
+          <li :key="index"
+            class="p-1 my-1"
+            :class="[r.result ? 'border-correct': 'border-wrong']">
+            <p>{{ `Question ${index +1}: ${r.question}` }}</p>
+            <p>{{ `Your answer: ${r.userAnswer}` }}</p>
+            <p v-if="!r.result">
+              {{ `Correct Answer: ${r.correctAnswer}` }}
+            </p>
           </li>
         </ul>
 
         <div class="btn-restart">
           <button @click="restartQuiz">
-            Restart <i class="fas fa-sync-alt"></i>
+            Restart <i class="fas fa-sync-alt" />
           </button>
         </div>
       </div>
-
     </div>
-
   </section>
 </template>
 
@@ -78,7 +80,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  name: "QuizPage",
+  name: 'QuizPage',
 
   data() {
     return {
@@ -87,7 +89,7 @@ export default {
       doingQuiz: true,
       results: [],
       shortAnswer: '',
-      isSelect: false
+      isSelect: false,
     }
   },
 
@@ -113,8 +115,8 @@ export default {
     },
 
     currentCorrectAnswer() {
-      return this.currentQuestion.suggestions.find(suggestion => suggestion.correct = true).suggestion
-    }
+      return this.currentQuestion.suggestions.find(suggestion => suggestion.correct === true).suggestion
+    },
   },
 
 
@@ -127,14 +129,14 @@ export default {
     ...mapMutations('questions', ['addQuestions']),
 
     selectResponse(option, index) {
-      if (this.isSelect == false) {
+      if (this.isSelect === false) {
         this.isSelect = true
         const selctResult = {
           question: this.currentQuestion.question,
           correctAnswer: this.currentCorrectAnswer,
           userAnswer: option.suggestion,
           result: option.correct ? true : false,
-          index: index
+          index: index,
         }
 
         this.results.push(selctResult)
@@ -151,7 +153,7 @@ export default {
         question: this.currentQuestion.question,
         correctAnswer: correctAnswer,
         userAnswer: this.shortAnswer,
-        result: correctAnswer.toUpperCase() === this.shortAnswer.toUpperCase()
+        result: correctAnswer.toUpperCase() === this.shortAnswer.toUpperCase(),
       }
 
       if (correctAnswer.toUpperCase() === this.shortAnswer.toUpperCase()) {
@@ -169,14 +171,14 @@ export default {
         return {
           answered: true,
           correct: thisSuggestion.correct,
-          selectedAnswer: answer.index === index
+          selectedAnswer: answer.index === index,
         }
       }
     },
 
     nextQuestion() {
       // call submit short answer
-      if (this.currentQuestion.type === "Short Answer") {
+      if (this.currentQuestion.type === 'Short Answer') {
         this.submitShortAnswer()
       }
 

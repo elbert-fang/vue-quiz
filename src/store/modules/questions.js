@@ -1,7 +1,7 @@
 import questions from '../../assets/questions.json'
 
 const coreState = {
-  questions: questions
+  questions: questions,
 }
 
 const getters = {
@@ -19,12 +19,12 @@ const mutations = {
 
   deleteQuestion: (state, index) => {
     state.questions.splice(index, 1)
-  }
+  },
 }
 
 export default {
   state: coreState,
   getters,
   mutations,
-  namespaced: true
+  namespaced: true,
 }

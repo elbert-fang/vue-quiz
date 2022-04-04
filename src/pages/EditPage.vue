@@ -16,33 +16,35 @@
           <td>Edit</td>
         </thead>
 
-        <tr class="my-1"
-          v-for="(q, index) in allQuestions"
-          :key="index">
+        <tr v-for="(q, index) in allQuestions"
+          :key="index"
+          class="my-1">
           <td> {{ index +1 }}</td>
           <!-- Question -->
           <td>
-            <input type="text"
-              v-if="q.isEditable"
-              :disabled="!q.isEditable"
-              v-model="q.question" />
-            <p v-else>{{q.question}}</p>
+            <input v-if="q.isEditable"
+              v-model="q.question"
+              type="text"
+              :disabled="!q.isEditable">
+            <p v-else>
+              {{ q.question }}
+            </p>
           </td>
           <!-- Type -->
           <td>
-            <p>{{q.type}}</p>
+            <p>{{ q.type }}</p>
           </td>
           <!-- Suggestions -->
           <td>
             <ol v-for="(s, index) in q.suggestions"
               :key="index">
               <li>
-                <input type="text"
-                  v-if="q.isEditable"
+                <input v-if="q.isEditable"
                   v-model="s.suggestion"
-                  :disabled="!q.isEditable" />
+                  type="text"
+                  :disabled="!q.isEditable">
                 <p v-else>
-                  <span v-if="q.type==='Multiple Choice'">{{index + 1}}. </span> {{s.suggestion}}
+                  <span v-if="q.type==='Multiple Choice'">{{ index + 1 }}. </span> {{ s.suggestion }}
                 </p>
               </li>
             </ol>
@@ -55,18 +57,27 @@
                 @change="selectCorrectAnswer($event.target.value, q)">
                 <option v-for="option in 4"
                   :key="option"
-                  :value="option"> {{ option }}</option>
+                  :value="option">
+                  {{ option }}
+                </option>
               </select>
-              <p v-else>{{ correctIndex(q.suggestions) + 1 }}</p>
+              <p v-else>
+                {{ correctIndex(q.suggestions) + 1 }}
+              </p>
             </template>
-            <p v-else>-</p>
+            <p v-else>
+              -
+            </p>
           </td>
 
           <!-- Edit or Remove -->
           <td>
-            <button @click.prevent="edit(index)">{{ q.isEditable ? 'Save' : 'Edit'}}</button>
-            <button @click="remove(index)">Delete</button>
-
+            <button @click.prevent="edit(index)">
+              {{ q.isEditable ? 'Save' : 'Edit' }}
+            </button>
+            <button @click="remove(index)">
+              Delete
+            </button>
           </td>
         </tr>
       </table>
@@ -81,10 +92,10 @@
         <form class="flex flex-column">
           <div class="my-1-2 flex flex-column">
             <label for="question">Question</label>
-            <textarea rows="3"
-              id="question"
-              :class="{'error-input': errors.newQuestion !== undefined}"
-              v-model="newQuestion" />
+            <textarea id="question"
+              v-model="newQuestion"
+              rows="3"
+              :class="{'error-input': errors.newQuestion !== undefined}" />
             <span v-if="errors.newQuestion"
               class="error-message"> {{ errors.newQuestion }}</span>
           </div>
@@ -93,17 +104,19 @@
           <div class="my-1-2 flex flex-column">
             <label for="type">Quiz Type</label>
             <select id="type"
-              :class="{'error-input': errors.type !== undefined}"
-              v-model="type">
+              v-model="type"
+              :class="{'error-input': errors.type !== undefined}">
               <option value=""
                 disabled
-                selected>Select the question type 🔽 </option>
-              <option value="Multiple Choice"
-                key="MultipleChoicer">
+                selected>
+                Select the question type 🔽
+              </option>
+              <option key="MultipleChoicer"
+                value="Multiple Choice">
                 Multiple Choice
               </option>
-              <option value="Short Answer"
-                key="ShortAnswer">
+              <option key="ShortAnswer"
+                value="Short Answer">
                 Short Answer
               </option>
             </select>
@@ -114,10 +127,10 @@
           <div v-if="type === 'Short Answer'"
             class="my-1-2 flex flex-column">
             <label for="suggetsion"> Suggestion </label>
-            <textarea rows="3"
-              id="suggestion"
-              :class="{'error-input': errors.suggestion !== undefined}"
-              v-model="suggestion" />
+            <textarea id="suggestion"
+              v-model="suggestion"
+              rows="3"
+              :class="{'error-input': errors.suggestion !== undefined}" />
             <span v-if="errors.suggestion"
               class="error-message"> {{ errors.suggestion }}</span>
           </div>
@@ -125,30 +138,30 @@
           <template v-else-if=" type === 'Multiple Choice'">
             <div class="my-1-2 flex flex-column">
               <label for="suggetsion1"> Suggestion 1 </label>
-              <textarea rows="3"
-                id="suggestion1"
-                :class="{'error-input': errors.suggestionOne !== undefined}"
-                v-model="suggestionOne" />
+              <textarea id="suggestion1"
+                v-model="suggestionOne"
+                rows="3"
+                :class="{'error-input': errors.suggestionOne !== undefined}" />
               <span v-if="errors.suggestionOne"
                 class="error-message"> {{ errors.suggestionOne }}</span>
             </div>
 
             <div class="my-1-2 flex flex-column">
               <label for="suggetsion2"> Suggestion 2 </label>
-              <textarea rows="3"
-                id="suggestion2"
-                :class="{'error-input': errors.suggestionTwo!== undefined}"
-                v-model="suggestionTwo" />
+              <textarea id="suggestion2"
+                v-model="suggestionTwo"
+                rows="3"
+                :class="{'error-input': errors.suggestionTwo!== undefined}" />
               <span v-if="errors.suggestionTwo"
                 class="error-message"> {{ errors.suggestionTwo }}</span>
             </div>
 
             <div class="my-1-2 flex flex-column">
               <label for="suggetsion3"> Suggestion 3</label>
-              <textarea rows="3"
-                id="suggestion3"
-                :class="{'error-input': errors.suggestionThree!== undefined}"
-                v-model="suggestionThree" />
+              <textarea id="suggestion3"
+                v-model="suggestionThree"
+                rows="3"
+                :class="{'error-input': errors.suggestionThree!== undefined}" />
               <span v-if="errors.suggestionThree"
                 class="error-message"> {{ errors.suggestionThree }}</span>
             </div>
@@ -156,8 +169,8 @@
             <div class="my-1-2 flex flex-column">
               <label for="suggetsion4"> Suggestion 4</label>
               <textarea id="suggestion4"
-                :class="{'error-input': errors.suggestionFour!== undefined}"
-                v-model="suggestionFour" />
+                v-model="suggestionFour"
+                :class="{'error-input': errors.suggestionFour!== undefined}" />
               <span v-if="errors.suggestionFour"
                 class="error-message"> {{ errors.suggestionFour }}</span>
             </div>
@@ -165,14 +178,16 @@
             <div class="my-1-2 flex flex-column">
               <label for="correct_option"> Correct answer</label>
               <select id="correct_option"
-                :class="{'error-input': errors.correctOption!== undefined}"
-                v-model="correctOption">
+                v-model="correctOption"
+                :class="{'error-input': errors.correctOption!== undefined}">
                 <option value=""
                   disabled
-                  selected>Select the correct answer 🔽 </option>
+                  selected>
+                  Select the correct answer 🔽
+                </option>
                 <option v-for="option in 4"
-                  :value="option"
-                  :key="option">
+                  :key="option"
+                  :value="option">
                   {{ option }}
                 </option>
               </select>
@@ -182,13 +197,13 @@
           </template>
 
           <button class="my-1"
-            @click.prevent="add">Add</button>
+            @click.prevent="add">
+            Add
+          </button>
         </form>
       </div>
       <!-- End of Add Quiz -->
-
     </div>
-
   </div>
 </template>
 
@@ -250,39 +265,39 @@ export default {
         return
       }
 
-      if (this.type === "Multiple Choice") {
+      if (this.type === 'Multiple Choice') {
         const question = {
-          "question": this.newQuestion,
-          "type": "Multiple Choice",
-          "isEditable": false,
-          "suggestions": [
+          question: this.newQuestion,
+          type: 'Multiple Choice',
+          isEditable: false,
+          suggestions: [
             {
-              "suggestion": this.suggestionOne,
+              suggestion: this.suggestionOne,
             },
             {
-              "suggestion": this.suggestionTwo
+              suggestion: this.suggestionTwo,
             },
             {
-              "suggestion": this.suggestionThree
+              suggestion: this.suggestionThree,
             },
             {
-              "suggestion": this.suggestionFour
-            }
-          ]
+              suggestion: this.suggestionFour,
+            },
+          ],
         }
         question.suggestions[this.correctOption - 1].correct = true
         this.addQuestions(question)
-      } else if (this.type === "Short Answer") {
+      } else if (this.type === 'Short Answer') {
         const shortAnswerQuestion = {
-          "question": this.newQuestion,
-          "type": "Short Answer",
-          "isEditable": false,
-          "suggestions": [
+          question: this.newQuestion,
+          type: 'Short Answer',
+          isEditable: false,
+          suggestions: [
             {
-              "suggestion": this.suggestion,
-              "correct": true
-            }
-          ]
+              suggestion: this.suggestion,
+              correct: true,
+            },
+          ],
         }
         this.addQuestions(shortAnswerQuestion)
       }
@@ -294,7 +309,7 @@ export default {
       question.suggestions = question.suggestions.map((element, index) => {
         return {
           suggestion: element.suggestion,
-          ...index === correctAnswer - 1 && { correct: true } // only add the correct key if the index key is what I'm waitin for
+          ...index === correctAnswer - 1 && { correct: true }, // only add the correct key if the index key is what I'm waitin for
         }
       })
 
@@ -330,11 +345,11 @@ export default {
         this.errors.newQuestion = "New question can't be empty"
       }
       // Validation for Multiple Choice
-      if (this.type === "Short Answer") {
+      if (this.type === 'Short Answer') {
         if (!this.suggestion) {
           this.errors.suggestion = "Suggestion can't be empty"
         }
-      } else if (this.type === "Multiple Choice") {
+      } else if (this.type === 'Multiple Choice') {
         if (!this.suggestionOne) {
           this.errors.suggestionOne = "Suggestion 1 can't be empty"
         }
@@ -361,7 +376,7 @@ export default {
       // return a boolean to suggest validation
 
       return Object.keys(this.errors).length === 0
-    }
-  }
+    },
+  },
 }
 </script>

@@ -15,7 +15,7 @@ const router = new VueRouter({
     { path: '/', component: HomePage },
     { path: '/edit', component: EditPage },
     { path: '/quiz', component: QuizPage },
-  ]
+  ],
 })
 
 new Vue({
