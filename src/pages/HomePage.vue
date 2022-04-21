@@ -10,9 +10,11 @@
           <p> Firt thing first, what's your name? </p>
           <input id="name_input"
             v-model="name"
+            data-testid="age-input"
             class="name-input full-width my-1"
             placeholder="Type your name here">
           <button class=""
+            data-testid="age-button"
             :disabled="loading"
             @click="getAge">
             Look up your age
@@ -56,20 +58,27 @@ export default {
 
   methods: {
     async getAge() {
+      console.log('I am fetching', this.name)
+
       const baseurl = 'https://api.agify.io?'
       this.errorMsg = '' // reset the error msg
       this.loading = true
 
       try {
         const result = await fetch(`${baseurl}name=${this.name}`)
+        console.log(result)
         const json = await result.json()
+        console.log(json)
         this.age = json.age
       } catch (error) {
         this.errorMsg = 'There was an error, please try again'
+        console.log(error)
         this.age = 0
       } finally {
         this.loading = false
       }
+
+      console.log('Age:', this.age)
 
 
     },
