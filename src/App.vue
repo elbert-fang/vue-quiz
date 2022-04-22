@@ -24,7 +24,7 @@
 <script>
 import HomePage from './pages/HomePage.vue'
 export default {
-  name: 'App',
+  name: 'QuizApp', // Name needs to be two words to avoid conflict with html generic tag
   components: {
     'home-page': HomePage,
   },

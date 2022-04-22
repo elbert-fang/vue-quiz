@@ -31,11 +31,18 @@
           </p>
           <template v-if="name && age">
             <p class="my-1">
-              Hi {{ name }}, the system guessed you are {{ age }} years old. <br>
-              (It's not always accurate, don't be offened!😝)<br>
+              Hi {{ name }}, the system guessed you are {{ age }} years old.
+            </p>
+            <p> (It's not always accurate, don't be offened!😝) </p>
+            <p>
               Anyway.., Let's play some quiz!
             </p>
-            <a href="/quiz"><button class="btn-start">Start Quiz</button></a>
+
+            <!-- use click event to handle route changes -->
+            <button class="btn-start"
+              @click="$router.push('/quiz')">
+              Start Quiz
+            </button>
           </template>
         </template>
       </div>

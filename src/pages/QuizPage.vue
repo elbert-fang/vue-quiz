@@ -23,11 +23,10 @@
               </li>
             </ul>
 
-            <template v-else>
-              <textarea v-model="shortAnswer"
-                rows="4"
-                cols="60" />
-            </template>
+            <textarea v-else
+              v-model="shortAnswer"
+              rows="4"
+              cols="60" />
           </div>
         </div>
 
